@@ -1,0 +1,3 @@
+[submodule "libexec/elasticsearch-rtf"]
+	path = libexec/elasticsearch-rtf
+	url = https://github.com/medcl/elasticsearch-rtf.git
