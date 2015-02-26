@@ -1,2 +1,5 @@
 googleOauth2DataStore
 target
+node_modules
+src/main/resources/static
+testData

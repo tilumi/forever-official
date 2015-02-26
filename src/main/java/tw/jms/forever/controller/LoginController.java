@@ -80,7 +80,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("/oauth2callback")
-	public void oauth2Callback(
+	public ModelAndView oauth2Callback(
 			@RequestParam("code") String code,
 			@RequestParam(value = "state", required = false, defaultValue = "/index.html") String targetView,
 			HttpServletRequest request, HttpServletResponse response)
@@ -99,12 +99,13 @@ public class LoginController {
 
 		auth = googleAuthenticationProvider.authenticate(auth);
 		SecurityContextHolder.getContext().setAuthentication(auth);
+		return new ModelAndView("redirect:" + targetView);
 	}
 
 	@RequestMapping("/logout.html")
-	public void logout() throws IOException {
+	public ModelAndView logout() throws IOException {
 		GoogleAuthentication auth = (GoogleAuthentication) SecurityContextHolder
-				.getContext().getAuthentication();
+				.getContext().getAuthentication();		
 		Credential cred = (Credential) auth.getCredentials();
 		HttpResponse revokeResponse = new NetHttpTransport()
 				.createRequestFactory()
@@ -115,6 +116,7 @@ public class LoginController {
 										cred.getAccessToken()))).execute();
 		if (revokeResponse.getStatusCode() == Response.SC_OK) {
 			SecurityContextHolder.getContext().setAuthentication(null);
+			return new ModelAndView("redirect:/index.html");
 		} else {
 			throw new RuntimeException("revoke google access token failed.");
 		}
