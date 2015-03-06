@@ -6,4 +6,5 @@ public class EnvKeys {
 	public static final String FOREVER_SERVER_HOST="FOREVER_SERVER_HOST";
 	public static final String SERVER_PORT="SERVER_PORT";
 	public static final String FILE_SYSTEM_ROOT_DIR="FILE_SYSTEM_ROOT_DIR";
+	public static final String EVA_STATUS_URL="EVA_STATUS_URL";
 }

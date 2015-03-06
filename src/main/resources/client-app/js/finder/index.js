@@ -15,26 +15,33 @@ require('bootstrap-contextmenu');
 FinderActions = Reflux.createActions([
     "load",
     "loaded",
+    "refresh",
     "download",
     "playVideo",
     "playAudio",
     "select",
     "unSelect",
-    "openFile"
+    "openFile",
+    "updateUploadProgress",
+    "upload"
 ]);
 
 FinderListStore = Reflux.createStore({
     init: function () {
         this.listenTo(FinderActions.load, this.fetchData);
+        this.listenTo(FinderActions.refresh, this.refresh);
     },
     fetchData: function (dir) {
         dir = dir || '';
+        this.dir = dir;
         Request.get('/rest/finder/list.html/?dir=' + dir, function (res) {
-            console.log(res.text);
             this.list = JSON.parse(res.text);
             FinderActions.loaded(dir);
             this.trigger(this.list);
         }.bind(this));
+    },
+    refresh: function () {
+        this.fetchData(this.dir);
     },
     getInitialState: function () {
         this.list = [];
@@ -43,13 +50,80 @@ FinderListStore = Reflux.createStore({
     }
 });
 
+FinderUploadStore = Reflux.createStore({
+    getInitialState: function () {
+        this.progresses = [];
+        return this.progresses;
+    },
+    init: function () {
+        this.listenTo(FinderActions.updateUploadProgress, this.updateUploadProgress);
+        this.listenTo(FinderActions.upload, this.upload);
+    },
+    updateUploadProgress: function (progress) {
+        if (progress) {
+            var i = 0;
+            for (i = 0; i < this.progresses.length; i++) {
+                if (this.progresses[i].file.name == progress.file.name) {
+                    this.progresses[i] = progress;
+                    break;
+                }
+            }
+            if (i == this.progresses.length) {
+                this.progresses.push(progress);
+            }
+
+        }
+        this.trigger(this.progresses);
+    },
+    upload: function (currentDir) {
+        for (var progress  in this.progresses) {
+            var xhr = new XMLHttpRequest();
+            var formData = new FormData;
+            formData.append('file', progress.file);
+            formData.append('dir', currentDir);
+            xhr.open('post', '/rest/finder/upload.html/', true);
+            xhr.upload.addEventListener('progress', function (e) {
+                progress.progress = (Math.ceil(e.loaded / e.total) * 100);
+                this.trigger(this.progresses);
+            }.bind(this), false);
+            xhr.onreadystatechange = function (e) {
+                if (4 == this.readyState) {
+                    FinderActions.load(currentDir);
+                } else {
+
+                }
+            };
+            console.log(formData);
+            xhr.send(formData);
+        }
+    }
+});
+
 var FileContextMenu = React.createClass({
     render: function () {
         return (
             <div id="context-menu">
                 <ul className="dropdown-menu" role="menu">
-                    <li>Delete</li>
-                    <li>Rename</li>
+                    <li action="delete">
+                        <a>Delete</a>
+                    </li>
+                    <li action="rename">
+                        <a>Rename</a>
+                    </li>
+                </ul>
+            </div>
+        );
+    }
+});
+
+var DirContextMenu = React.createClass({
+    render: function () {
+        return (
+            <div id="dir-context-menu">
+                <ul className="dropdown-menu" role="menu">
+                    <li action="mkdir">
+                        <a >Create Dir</a>
+                    </li>
                 </ul>
             </div>
         );
@@ -57,7 +131,7 @@ var FileContextMenu = React.createClass({
 })
 
 var File = React.createClass({
-    mixins: [Reflux.listenTo(FinderActions.select, "onSelectAction"),Reflux.listenTo(FinderActions.unSelect, "onUnSelectAction"), Reflux.listenTo(FinderActions.openFile,"onOpenAction")],
+    mixins: [Reflux.listenTo(FinderActions.select, "onSelectAction"), Reflux.listenTo(FinderActions.unSelect, "onUnSelectAction"), Reflux.listenTo(FinderActions.openFile, "onOpenAction")],
     onSelectAction: function (selectedFile) {
         if (selectedFile.name == this.props.file.name) {
             this.setState({selected: true});
@@ -65,11 +139,11 @@ var File = React.createClass({
             this.setState({selected: false});
         }
     },
-    onUnSelectAction: function(){
+    onUnSelectAction: function () {
         this.setState({selected: false});
     },
-    onOpenAction:function(file){
-        if(file.name == this.props.file.name){
+    onOpenAction: function (file) {
+        if (file.name == this.props.file.name) {
             open();
         }
     },
@@ -95,12 +169,12 @@ var File = React.createClass({
         } else {
             var name = file.name;
             var ext = name.substring(name.lastIndexOf('.') + 1);
-            if (ext == 'doc' || ext == 'mov') {
+            if (ext == 'mp4' || ext == 'mov') {
                 FinderActions.playVideo(file.path);
             } else if (ext == 'mp3') {
                 FinderActions.playAudio(file.path);
-            } else{
-
+            } else {
+                window.location.href = '/rest/finder/download.html/?path=' + this.props.file.path;
             }
         }
     },
@@ -109,22 +183,36 @@ var File = React.createClass({
         $(this.refs.fileDiv.getDOMNode()).contextmenu({
             target: '#context-menu',
             before: function (context, e) {
-                if(self.props.file.isDir){
-                    return false;
-                }
-                self.onClickEvent();
+                FinderActions.select(self.props.file);
                 return true;
             },
             onItem: function (context, e) {
+                var action = $(e.currentTarget).attr("action");
+                console.log(action);
+                if (action == 'delete') {
+                    if (confirm('Are you sure you want delete this file/dir?')) {
+                        Request.post('/rest/finder/' + action + '.html/').type('form').send({path: self.props.file.path}).end(function (res) {
+                            FinderActions.refresh();
+                        });
+                    }
+                } else if (action == 'rename') {
+                    var newName = prompt('Please enter new name: ');
+                    Request.post('/rest/finder/' + action + '.html/').type('form').send({
+                        path: self.props.file.path,
+                        newName: newName
+                    }).end(function (res) {
+                        FinderActions.refresh();
+                    });
+                }
 
             }
         });
     },
     onClickEvent: function () {
-        if(this.props.file.isDir){
+        if (this.props.file.isDir) {
             FinderActions.unSelect();
             this.open();
-        }else {
+        } else {
             FinderActions.select(this.props.file);
         }
     },
@@ -133,7 +221,7 @@ var File = React.createClass({
             flaot: 'left',
             display: 'inline-block',
             backgroundColor: this.state.selected ? '#dddddd' : '#ffffff',
-            width: '150',
+            width: '150'
         };
 
         return (
@@ -147,11 +235,27 @@ var File = React.createClass({
 
 
 var Finder = React.createClass({
-    mixins: [Reflux.connect(FinderListStore, "list")],
-    render: function () {
+    mixins: [Reflux.connect(FinderListStore, "list"), Reflux.connect(FinderActions.loaded, "currentDir")],
+    componentDidMount: function () {
+        var self = this;
+        $(this.refs.finderDiv.getDOMNode()).contextmenu({
+            target: '#dir-context-menu',
+            onItem: function (context, e) {
+                var action = $(e.currentTarget).attr("action");
+                var dirName = prompt('Please enter directory name: ');
+                Request.post('/rest/finder/' + action + '.html/').type('form').send({
+                    path: self.state.currentDir,
+                    dirName: dirName
+                }).end(function (res) {
+                    FinderActions.refresh();
+                });
+            }
 
+        });
+    },
+    render: function () {
         return (
-            <div>
+            <div ref="finderDiv">
             {this.state.list.map(function (elem) {
                 return (
                     <File file={elem}>
@@ -262,58 +366,53 @@ var FileUploadModal = React.createClass({
 
 
 var FinderUpload = React.createClass({
-    getInitialState: function () {
-        return {};
+    mixins: [Reflux.connect(FinderUploadStore, "progresses")],
+    componentDidMount: function () {
+        FinderActions.updateUploadProgress();
     },
     setFile: function () {
         this.file = this.refs.file.getDOMNode().files[0];
+        var progress = {}
+        progress.file = this.file;
+        progress.progress = 0;
+        FinderActions.updateUploadProgress(progress);
     },
     upload: function (e) {
         e.preventDefault();
-        var xhr = new XMLHttpRequest();
-        var formData = new FormData;
-        formData.append('file', this.file);
-        formData.append('dir', this.props.currentDir);
-        var self = this;
-        xhr.open('post', '/rest/finder/upload.html/', true);
-        xhr.upload.addEventListener('progress', function (e) {
-            this.setState({progress: (Math.ceil(e.loaded / e.total) * 100)});
-        }.bind(this), false);
-        xhr.onreadystatechange = function (e) {
-            if (4 == this.readyState) {
-                FinderActions.load(self.props.currentDir);
-            } else {
-
-            }
-        };
-        xhr.send(formData);
+        FinderActions.upload(this.props.currentDir);
     },
     render: function () {
         return (
             <form>
                 Current Directory: {this.props.currentDir}
                 <input type="file" ref="file" onChange={this.setFile}/>
-                <ProgressBar active now={this.state.progress} />
+                {this.state.progresses.map(function (elem) {
+                    return (
+                        <div>
+                            <span>{elem.file.name}</span>
+                            <ProgressBar active now={elem.progress} />
+                        </div>
+                    );
+                }, this)}
                 <input type="submit"
                     value="Upload" onClick={this.upload}/>
-                Press here to upload the file!
             </form>
         )
     }
 });
 
 var Footer = React.createClass({
-    mixins: [Reflux.listenTo(FinderActions.select, "onSelectAction"),Reflux.listenTo(FinderActions.unSelect, "onUnSelectAction")],
+    mixins: [Reflux.listenTo(FinderActions.select, "onSelectAction"), Reflux.listenTo(FinderActions.unSelect, "onUnSelectAction")],
     onSelectAction: function (selectedFile) {
         this.setState({selectedFile: selectedFile, selected: true});
     },
-    onUnSelectAction: function(){
+    onUnSelectAction: function () {
         this.setState({selected: false});
     },
     getInitialState: function () {
         return {};
     },
-    open:function(e){
+    open: function (e) {
         e.preventDefault();
         FinderActions.openFile(this.state.selectedFile);
     },
@@ -323,9 +422,9 @@ var Footer = React.createClass({
             position: 'fixed',
             bottom: '0',
             width: '100%',
-            display: this.state.selected?'block':'none'
+            display: this.state.selected ? 'block' : 'none'
         };
-        var btnStyle={
+        var btnStyle = {
             width: '500'
         };
         return (
@@ -339,6 +438,7 @@ var Footer = React.createClass({
 
 React.render((<div>
     <Header/>
+    <DirContextMenu/>
     <FileContextMenu/>
     <PlayerModal/>
     <Finder />
