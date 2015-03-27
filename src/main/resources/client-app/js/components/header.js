@@ -1,8 +1,3 @@
-/**
- * Created by lucasmf on 2/25/15.
- */
-React = require('react');
-ReactBootstrap = require('react-bootstrap');
 Navbar = ReactBootstrap.Navbar;
 Nav = ReactBootstrap.Nav;
 NavItem = ReactBootstrap.NavItem;

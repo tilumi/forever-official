@@ -1,5 +1,7 @@
 # -*- coding:gb2312 -*-
 # -*- coding:UTF-8 -*-
+import os
+
 __author__ = 'jimmy'
 
 import urllib
@@ -179,5 +181,7 @@ def get_eva_status():
     return jsonlist
 
 if __name__ == "__main__":
+    pid = os.getpid()
+    print "Running server at process " + str(pid)
     app.run()
 # print get_eva_status()

@@ -1,31 +1,27 @@
-window.React = require('react/addons');
-window.jQuery = window.$ = require('jquery');
-window.DateTimeField = require('react-bootstrap-datetimepicker');
 window.Header = require('../components/header');
-window.Reflux = require('reflux');
 window.Request = require('superagent');
 window.Header = require('../components/header');
 window.moment = require('moment');
-window.ReactBootstrap = require('react-bootstrap');
 window.Table = ReactBootstrap.Table;
+window.Button = ReactBootstrap.Button;
+
 
 Actions = Reflux.createActions({
     "load": {children: ["completed", "failed"]},
-    "onStartDateChange": {},
-    "onEndDateChange": {},
-    "setStartDate": {},
-    "setEndDate": {}
+    "onTimeRangeChange": {},
+    "setTimeRange": {}
 })
 
 Actions.load.listen(function () {
     Request.get('/rest/evaStatus/index.html/', function (res) {
         var evaStatusList = JSON.parse(res.text);
+        //console.log(evaStatusList);
         Actions.load.completed(evaStatusList);
     });
 });
 
 EVA_STATUS_TABLE = React.createClass({
-    mixins: [Reflux.listenTo(Actions.load.completed, "onLoadCompleted"), Reflux.listenTo(Actions.setStartDate, "onStartDateChange"), Reflux.listenTo(Actions.setEndDate, "onEndDateChange"), Reflux.listenTo(Actions.onStartDateChange, "onStartDateChange"), Reflux.listenTo(Actions.onEndDateChange, "onEndDateChange")],
+    mixins: [Reflux.listenTo(Actions.load.completed, "onLoadCompleted"), Reflux.listenTo(Actions.setTimeRange, "onTimeRangeChange"), Reflux.listenTo(Actions.onTimeRangeChange, "onTimeRangeChange")],
     getInitialState: function () {
         var Level = function (id, label, min, max) {
             this.id = id;
@@ -90,16 +86,17 @@ EVA_STATUS_TABLE = React.createClass({
         this.setState({evaStatusList: evaStatusList});
     }
     ,
-    onStartDateChange: function (startDate) {
-        this.setState({startDate: startDate});
+    onTimeRangeChange: function (timeRange) {
+        //console.log(timeRange);
+        this.setState({timeRange: timeRange});
     }
     ,
     getLessonsBeforePeriod: function (evaStatus) {
         var result = 0;
-        if(this.state.startDate && this.state.endDate && evaStatus.lessons) {
-            $.each(evaStatus.lessons, function (lesson) {
+        if (this.state.timeRange.start && this.state.timeRange.end && evaStatus.lessons) {
+            $.each(evaStatus.lessons, function (index, lesson) {
 
-                if (moment(lesson[1]).isBefore(this.state.startDate)) {
+                if (moment(lesson[1]).isBefore(this.state.timeRange.start)) {
                     result = result + 1;
                 }
             }.bind(this));
@@ -108,9 +105,9 @@ EVA_STATUS_TABLE = React.createClass({
     },
     getLessonsAfterPeriod: function (evaStatus) {
         var result = 0;
-        if(this.state.startDate && this.state.endDate && evaStatus.lessons) {
-            $.each(evaStatus.lessons, function (lesson) {
-                if (moment(lesson[1]).isAfter(this.state.endDate)) {
+        if (this.state.timeRange.start && this.state.timeRange.end && evaStatus.lessons) {
+            $.each(evaStatus.lessons, function (index, lesson) {
+                if (moment(lesson[1]).isAfter(this.state.timeRange.end)) {
                     result = result + 1;
                 }
             }.bind(this));
@@ -120,29 +117,27 @@ EVA_STATUS_TABLE = React.createClass({
     getLessonsBetweenPeriod: function (evaStatus) {
         var result = 0;
 
-        if(this.state.startDate && this.state.endDate && evaStatus.lessons) {
-            $.each(evaStatus.lessons, function (lesson) {
-                if (moment(lesson[1]).isSame(this.state.endDate) || moment(lesson[1]).isSame(this.state.startDate) || (moment(lesson[1]).isAfter(this.state.startDate) && moment(lesson[1]).isBefore(this.state.endDate))) {
+        if (this.state.timeRange.start && this.state.timeRange.end && evaStatus.lessons) {
+            $.each(evaStatus.lessons, function (index, lesson) {
+                console.log(this.state.timeRange);
+                console.log(lesson[1]);
+                if (moment(lesson[1]).isSame(this.state.timeRange.end) || moment(lesson[1]).isSame(this.state.timeRange.start) || (moment(lesson[1]).isAfter(this.state.timeRange.start) && moment(lesson[1]).isBefore(this.state.timeRange.end))) {
                     result = result + 1;
                 }
             }.bind(this));
         }
         return result;
     },
-    getListeningEvaStatusBetweenPeriod: function(evaStatusList){
-        console.log(evaStatusList);
+    getListeningEvaStatusBetweenPeriod: function (evaStatusList) {
+
         var result = 0;
-        $.each(evaStatusList, function(evaStatus){
-            if(this.getLessonsBetweenPeriod(evaStatus) > 0){
-                result = result+1;
+        $.each(evaStatusList, function (index, evaStatus) {
+            if (this.getLessonsBetweenPeriod(evaStatus) > 0) {
+                result = result + 1;
             }
         }.bind(this));
         return result;
     },
-    onEndDateChange: function (endDate) {
-        this.setState({endDate: endDate});
-    }
-    ,
     groupBy: function (array, f) {
         var groups = {};
         array.forEach(function (o) {
@@ -165,23 +160,52 @@ EVA_STATUS_TABLE = React.createClass({
                     )
                 })
                     }
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td></td>
+                    {this.state.levels.map(function (level) {
+                        var matchedEvaStatusList = $.grep(this.state.evaStatusList, function (evaStatus) {
+                            return level.isLevel(evaStatus)
+                        });
+                        return (
+                            <td>{matchedEvaStatusList.length}({this.getListeningEvaStatusBetweenPeriod(matchedEvaStatusList)})</td>
+                        )
+                    }.bind(this))
+                        }
+                    <td>{this.state.evaStatusList.length}({this.getListeningEvaStatusBetweenPeriod(this.state.evaStatusList)})
+
+                    </td>
+                </tr>
                 {
                     this.state.departs.map(function (depart) {
+                        var matchedEvaStatusList = $.grep(this.state.evaStatusList, function (evaStatus) {
+                            return depart.isDepart(evaStatus);
+                        });
                         return (<tr>
                             <td>{depart.label}</td>
                             {this.state.levels.map(function (level) {
-                                var matchedEvaStatusList =  $.grep(this.state.evaStatusList, function (evaStatus) {
-                                    return depart.isDepart(evaStatus) && level.isLevel(evaStatus)
+                                var matchedEvaStatusList = $.grep(this.state.evaStatusList, function (evaStatus) {
+                                    return depart.isDepart(evaStatus) && level.isLevel(evaStatus);
                                 });
-                                return <td><div>{matchedEvaStatusList.length}({this.getListeningEvaStatusBetweenPeriod(matchedEvaStatusList)})</div>{
+                                return <td>
+                                    <div>{matchedEvaStatusList.length}({this.getListeningEvaStatusBetweenPeriod(matchedEvaStatusList)})</div>{
                                     matchedEvaStatusList.map(function (evaStatus) {
-                                        return <div>{evaStatus.name}({this.getLessonsBeforePeriod(evaStatus)} + {this.getLessonsBetweenPeriod(evaStatus)} + {this.getLessonsAfterPeriod(evaStatus)})</div>
+                                        var style = {};
+                                        if(evaStatus.gender){
+                                            style={color: 'blue'};
+                                        }else{
+                                            style={color: 'red'};
+                                        }
+                                        return <div ><a style={style}>{evaStatus.name}({this.getLessonsBeforePeriod(evaStatus)} + {this.getLessonsBetweenPeriod(evaStatus)} + {this.getLessonsAfterPeriod(evaStatus)})</a></div>
                                     }.bind(this))
                                     }</td>
                             }.bind(this))}
+                            <td>
+                                {matchedEvaStatusList.length}({this.getListeningEvaStatusBetweenPeriod(matchedEvaStatusList)})
+                            </td>
                         </tr>);
                     }.bind(this))
                     }
@@ -191,60 +215,85 @@ EVA_STATUS_TABLE = React.createClass({
 })
 ;
 
-var StartDate = React.createClass({
-    mixins: [Reflux.listenTo(Actions.setStartDate, "onStartDateChange")],
+var DateField = React.createClass({
+    mixins: [Reflux.listenTo(Actions.setTimeRange, "onTimeRangeChange")],
     getInitialState: function () {
-        return {startDate: ''}
+        return {startYear: '', startMonth: '', startDay: '', endYear: '', endMonth: '', endDay: ''};
     },
-    onStartDateChange: function (startDate) {
-        this.setState({startDate: startDate});
+    submit: function () {
+        var startYear = parseInt($(this.refs.startYear.getDOMNode()).val());
+        var startMonth = parseInt($(this.refs.startMonth.getDOMNode()).val());
+        var startDay = parseInt($(this.refs.startDay.getDOMNode()).val());
+        var startDate = moment().year(startYear).month(startMonth - 1).date(startDay).format('YYYY/MM/DD');
+
+        var endYear = parseInt($(this.refs.endYear.getDOMNode()).val());
+        var endMonth = parseInt($(this.refs.endMonth.getDOMNode()).val());
+        var endDay = parseInt($(this.refs.endDay.getDOMNode()).val());
+        var endDate = moment().year(endYear).month(endMonth - 1).date(endDay).format('YYYY/MM/DD');
+        console.log(startDate);
+        console.log(endDate);
+        Actions.onTimeRangeChange({start: startDate, end: endDate});
+
+    },
+    onTimeRangeChange: function (timeRange) {
+        var startArr = timeRange.start.split('/');
+        this.setState({startYear: "" + parseInt(startArr[0])});
+        this.setState({startMonth: "" + parseInt(startArr[1])});
+        this.setState({startDay: "" + parseInt(startArr[2])});
+        var endArr = timeRange.end.split('/');
+        this.setState({endYear: "" + parseInt(endArr[0])});
+        this.setState({endMonth: "" + parseInt(endArr[1])});
+        this.setState({endDay: "" + parseInt(endArr[2])});
+    },
+    onChange: function (event) {
+        if (Object.is(event.target, this.refs.startYear.getDOMNode())) {
+            this.setState({startYear: event.target.value});
+        } else if (Object.is(event.target, this.refs.startMonth.getDOMNode())) {
+            this.setState({startMonth: event.target.value});
+        } else if (Object.is(event.target, this.refs.startDay.getDOMNode())) {
+            this.setState({startDay: event.target.value});
+        } else if (Object.is(event.target, this.refs.endYear.getDOMNode())) {
+            this.setState({endYear: event.target.value});
+        } else if (Object.is(event.target, this.refs.endMonth.getDOMNode())) {
+            this.setState({endMonth: event.target.value});
+        } else if (Object.is(event.target, this.refs.endDay.getDOMNode())) {
+            this.setState({endDay: event.target.value});
+        }
     },
     render: function () {
-        return <DateTimeField
-            inputFormat="YYYY/MM/DD"
-            dateTime={this.state.startDate}
-            format='YYYY/MM/DD'
-            showToday={true}
-            onChange = {function (date) {
-                Actions.onStartDateChange(date);
-            }
-                }/>;
+        var style = {display: 'inline-block', marginRight: '20px', marginBottom: '20px'};
+        return <div>
+            <span style={style} >
+                <label>開始</label>
+                <input type="number" min="2012" max="2020" ref="startYear" value={this.state.startYear} onChange={this.onChange} />
+                年
+                <input type="number" min="1" max="12"  ref="startMonth" value={this.state.startMonth}  onChange={this.onChange} />
+                月
+                <input type="number" min="1" max="31"  ref="startDay" value={this.state.startDay}  onChange={this.onChange} />
+                日
+            </span>
+            <span  style={style}>
+                <label>結束</label>
+                <input type="number" min="2012" max="2020"  ref="endYear" value={this.state.endYear}  onChange={this.onChange} />
+                年
+                <input type="number" min="1" max="12"  ref="endMonth" value={this.state.endMonth}  onChange={this.onChange} />
+                月
+                <input type="number" min="1" max="31"  ref="endDay" value={this.state.endDay}  onChange={this.onChange} />
+                日
+            </span>
+            <Button bsStyle='primary' onClick={this.submit}>送出</Button>
+        </div>
     }
+})
 
-});
-
-var EndDate = React.createClass({
-    mixins: [Reflux.listenTo(Actions.setEndDate, "onEndDateChange")],
-    getInitialState: function () {
-        return {endDate: ''}
-    },
-    onEndDateChange: function (endDate) {
-        this.setState({endDate: endDate});
-    },
-    render: function () {
-        return <DateTimeField
-            inputFormat="YYYY/MM/DD"
-            dateTime={this.state.endDate}
-            format='YYYY/MM/DD'
-            showToday={true}
-            onChange = {function (date) {
-                Actions.onEndDateChange(date);
-            }
-                }
-        />;
-    }
-
-});
 
 React.render((
-    <div>
+    <div style={{padding: '20px'}}>
         <Header/>
-        <StartDate/>
-        <EndDate/>
+        <DateField/>
         <EVA_STATUS_TABLE/>
     </div>
 ), document.getElementById('content'));
 
 Actions.load();
-Actions.setStartDate(moment().format('YYYY/MM/DD'));
-Actions.setEndDate(moment().add(7, 'days').format('YYYY/MM/DD'));
+Actions.setTimeRange({start: moment().add(-7, 'days').format('YYYY/MM/DD'), end: moment().format('YYYY/MM/DD')});

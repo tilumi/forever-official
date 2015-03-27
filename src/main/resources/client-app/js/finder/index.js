@@ -1,9 +1,5 @@
-window.jQuery = window.$ = require('jquery');
-window.React = require('react');
-window.Reflux = require('reflux');
 window.Showdown = require('showdown')
 window.Request = require('superagent');
-window.ReactBootstrap = require('react-bootstrap');
 window.Button = ReactBootstrap.Button;
 window.Modal = ReactBootstrap.Modal;
 window.OverlayMixin = ReactBootstrap.OverlayMixin;

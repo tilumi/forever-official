@@ -1,0 +1,196 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building forever-official 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] >>> spring-boot-maven-plugin:1.2.1.RELEASE:run (default-cli) > test-compile @ forever-official >>>
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ forever-official ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] Copying 19216 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ forever-official ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ forever-official ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/lucasmf/Documents/workspace-sts-3.6.3.SR1/forever-official/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ forever-official ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot-maven-plugin:1.2.1.RELEASE:run (default-cli) < test-compile @ forever-official <<<
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:1.2.1.RELEASE:run (default-cli) @ forever-official ---
+[INFO] Attaching agents: [/Users/lucasmf/.m2/repository/org/springframework/springloaded/1.2.1.RELEASE/springloaded-1.2.1.RELEASE.jar]
+objc[57082]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/bin/java and /Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/libinstrument.dylib. One of the two will be used. Which one is undefined.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v1.2.1.RELEASE)
+
+[2015-03-26 18:25:40][INFO ] (Forever:47) : Starting Forever on nameattend-lm with PID 57082 (/Users/lucasmf/Documents/workspace-sts-3.6.3.SR1/forever-official/target/classes started by lucasmf in /Users/lucasmf/Documents/workspace-sts-3.6.3.SR1/forever-official)
+[2015-03-26 18:25:40][DEBUG] (Forever:50) : Running with Spring Boot v1.2.1.RELEASE, Spring v4.1.4.RELEASE
+[2015-03-26 18:25:41][INFO ] (AnnotationConfigEmbeddedWebApplicationContext:510) : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6cf56dcc: startup date [Thu Mar 26 18:25:41 CST 2015]; root of context hierarchy
+[2015-03-26 18:25:42][INFO ] (Version:27) : HV000001: Hibernate Validator 5.1.3.Final
+[2015-03-26 18:25:43][INFO ] (PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309) : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$1281fc27] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2015-03-26 18:25:43][INFO ] (PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309) : Bean 'transactionAttributeSource' of type [class org.springframework.transaction.annotation.AnnotationTransactionAttributeSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2015-03-26 18:25:43][INFO ] (PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309) : Bean 'transactionInterceptor' of type [class org.springframework.transaction.interceptor.TransactionInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2015-03-26 18:25:43][INFO ] (PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309) : Bean 'org.springframework.transaction.config.internalTransactionAdvisor' of type [class org.springframework.transaction.interceptor.BeanFactoryTransactionAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2015-03-26 18:25:43][INFO ] (TomcatEmbeddedServletContainer:79) : Tomcat initialized with port(s): 8443 (http)
+[2015-03-26 18:25:43][INFO ] (StandardService:180) : Starting service Tomcat
+[2015-03-26 18:25:43][INFO ] (StandardEngine:180) : Starting Servlet Engine: Apache Tomcat/8.0.15
+[2015-03-26 18:25:43][INFO ] ([/]:180) : Initializing Spring embedded WebApplicationContext
+[2015-03-26 18:25:43][INFO ] (ContextLoader:267) : Root WebApplicationContext: initialization completed in 2924 ms
+[2015-03-26 18:25:45][INFO ] (LocalContainerEntityManagerFactoryBean:339) : Building JPA container EntityManagerFactory for persistence unit 'default'
+[2015-03-26 18:25:45][INFO ] (LogHelper:46) : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[2015-03-26 18:25:45][INFO ] (Version:54) : HHH000412: Hibernate Core {4.3.7.Final}
+[2015-03-26 18:25:45][INFO ] (Environment:239) : HHH000206: hibernate.properties not found
+[2015-03-26 18:25:45][INFO ] (Environment:346) : HHH000021: Bytecode provider name : javassist
+[2015-03-26 18:25:46][INFO ] (Version:66) : HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+[2015-03-26 18:25:46][INFO ] (Dialect:145) : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+[2015-03-26 18:25:46][INFO ] (ASTQueryTranslatorFactory:47) : HHH000397: Using ASTQueryTranslatorFactory
+[2015-03-26 18:25:46][INFO ] (SchemaExport:343) : HHH000227: Running hbm2ddl schema export
+[2015-03-26 18:25:46][INFO ] (SchemaExport:405) : HHH000230: Schema export complete
+[2015-03-26 18:25:47][INFO ] (DefaultSecurityFilterChain:28) : Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4767a7be, org.springframework.security.web.context.SecurityContextPersistenceFilter@1297e48e, org.springframework.security.web.header.HeaderWriterFilter@1ffc29fe, org.springframework.security.web.authentication.logout.LogoutFilter@116e7f2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5bec70c1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@788f4769, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6635cf91, org.springframework.security.web.session.SessionManagementFilter@2f1b6a15, org.springframework.security.web.access.ExceptionTranslationFilter@594f5044, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@15c83009]
+[2015-03-26 18:25:47][INFO ] (ServletRegistrationBean:165) : Mapping servlet: 'dispatcherServlet' to [/]
+[2015-03-26 18:25:47][INFO ] (FilterRegistrationBean:278) : Mapping filter: 'characterEncodingFilter' to: [/*]
+[2015-03-26 18:25:47][INFO ] (FilterRegistrationBean:278) : Mapping filter: 'springSecurityFilterChain' to: [/*]
+[2015-03-26 18:25:47][INFO ] (FilterRegistrationBean:278) : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerAdapter:518) : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6cf56dcc: startup date [Thu Mar 26 18:25:41 CST 2015]; root of context hierarchy
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/eva_status/index.html],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String tw.jms.forever.controller.EvaStatusController.index()
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/finder/index.html],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String tw.jms.forever.controller.FinderController.index(org.springframework.ui.Model)
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/index.html],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String tw.jms.forever.controller.HomeController.index(org.springframework.ui.Model)
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/login.html],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView tw.jms.forever.controller.LoginController.login(java.lang.String)
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/oauth2callback],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView tw.jms.forever.controller.LoginController.oauth2Callback(java.lang.String,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/logout.html],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView tw.jms.forever.controller.LoginController.logout() throws java.io.IOException
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/woogle/index.html],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String tw.jms.forever.controller.WoogleController.index(org.springframework.ui.Model)
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/rest/evaStatus/index.html/],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String tw.jms.forever.rest.controller.EvaStatusRestController.index() throws java.io.IOException
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/rest/finder/list.html/],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.util.List<tw.jms.forever.model.FileMeta> tw.jms.forever.rest.controller.FinderRestController.listFiles(java.lang.String) throws java.io.IOException
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/rest/finder/mkdir.html/],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public boolean tw.jms.forever.rest.controller.FinderRestController.createDir(java.lang.String,java.lang.String) throws java.io.IOException
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/rest/finder/upload.html/],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public boolean tw.jms.forever.rest.controller.FinderRestController.upload(java.lang.String,org.springframework.web.multipart.MultipartFile) throws java.io.IOException
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/rest/finder/delete.html/],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public boolean tw.jms.forever.rest.controller.FinderRestController.delete(java.lang.String) throws java.io.IOException
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/rest/finder/download.html/],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public void tw.jms.forever.rest.controller.FinderRestController.download(java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/rest/finder/rename.html/],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public boolean tw.jms.forever.rest.controller.FinderRestController.rename(java.lang.String,java.lang.String) throws java.io.IOException
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/error],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[2015-03-26 18:25:47][INFO ] (RequestMappingHandlerMapping:220) : Mapped "{[/error],methods=[],params=[],headers=[],consumes=[],produces=[text/html],custom=[]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest)
+[2015-03-26 18:25:47][INFO ] (SimpleUrlHandlerMapping:314) : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[2015-03-26 18:25:47][INFO ] (SimpleUrlHandlerMapping:314) : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[2015-03-26 18:25:47][INFO ] (SimpleUrlHandlerMapping:314) : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[2015-03-26 18:25:48][INFO ] (AuthenticationManagerConfiguration:183) : 
+
+Using default security password: 7686c4e5-0c09-4b0f-ae3c-b5423ff77eb3
+
+[2015-03-26 18:25:48][INFO ] (AnnotationMBeanExporter:420) : Registering beans for JMX exposure on startup
+[2015-03-26 18:25:48][INFO ] (Http11NioProtocol:180) : Initializing ProtocolHandler ["http-nio-8443"]
+[2015-03-26 18:25:48][INFO ] (Http11NioProtocol:180) : Starting ProtocolHandler ["http-nio-8443"]
+[2015-03-26 18:25:48][ERROR] (Http11NioProtocol:182) : Failed to start end point associated with ProtocolHandler ["http-nio-8443"]
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:343)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:737)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:471)
+	at org.apache.coyote.http11.Http11NioProtocol.start(Http11NioProtocol.java:80)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:986)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:237)
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.addPreviouslyRemovedConnectors(TomcatEmbeddedServletContainer.java:186)
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.start(TomcatEmbeddedServletContainer.java:149)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.startEmbeddedServletContainer(EmbeddedWebApplicationContext.java:287)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.finishRefresh(EmbeddedWebApplicationContext.java:141)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:483)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:118)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:691)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:961)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:950)
+	at tw.jms.forever.Forever.main(Forever.java:18)
+[2015-03-26 18:25:48][ERROR] (StandardService:182) : Failed to start connector [Connector[HTTP/1.1-8443]]
+org.apache.catalina.LifecycleException: Failed to start component [Connector[HTTP/1.1-8443]]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:154)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:237)
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.addPreviouslyRemovedConnectors(TomcatEmbeddedServletContainer.java:186)
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.start(TomcatEmbeddedServletContainer.java:149)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.startEmbeddedServletContainer(EmbeddedWebApplicationContext.java:287)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.finishRefresh(EmbeddedWebApplicationContext.java:141)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:483)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:118)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:691)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:961)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:950)
+	at tw.jms.forever.Forever.main(Forever.java:18)
+Caused by: org.apache.catalina.LifecycleException: service.getName(): "Tomcat";  Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:993)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	... 12 more
+Caused by: java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:343)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:737)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:471)
+	at org.apache.coyote.http11.Http11NioProtocol.start(Http11NioProtocol.java:80)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:986)
+	... 13 more
+[2015-03-26 18:25:48][INFO ] (Http11NioProtocol:180) : Pausing ProtocolHandler ["http-nio-8443"]
+[2015-03-26 18:25:48][INFO ] (StandardService:180) : Stopping service Tomcat
+[2015-03-26 18:25:48][INFO ] (LifecycleBase:180) : The stop() method was called on component [StandardServer[-1]] after stop() had already been called. The second call will be ignored.
+[2015-03-26 18:25:48][INFO ] (Http11NioProtocol:180) : Stopping ProtocolHandler ["http-nio-8443"]
+[2015-03-26 18:25:48][INFO ] (Http11NioProtocol:180) : Destroying ProtocolHandler ["http-nio-8443"]
+[2015-03-26 18:25:48][INFO ] (ClasspathLoggingApplicationListener:55) : Application failed to start with classpath: [file:/Users/lucasmf/Documents/workspace-sts-3.6.3.SR1/forever-official/src/main/resources/, file:/Users/lucasmf/Documents/workspace-sts-3.6.3.SR1/forever-official/src/main/resources/, file:/Users/lucasmf/Documents/workspace-sts-3.6.3.SR1/forever-official/target/classes/, file:/Users/lucasmf/.m2/repository/org/hibernate/hibernate-core/4.3.7.Final/hibernate-core-4.3.7.Final.jar, file:/Users/lucasmf/.m2/repository/javax/transaction/javax.transaction-api/1.2/javax.transaction-api-1.2.jar, file:/Users/lucasmf/.m2/repository/org/javassist/javassist/3.18.1-GA/javassist-3.18.1-GA.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/1.2.1.RELEASE/spring-boot-starter-data-jpa-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-aop/4.1.4.RELEASE/spring-aop-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/com/google/guava/guava-jdk5/13.0/guava-jdk5-13.0.jar, file:/Users/lucasmf/.m2/repository/org/unbescape/unbescape/1.1.0.RELEASE/unbescape-1.1.0.RELEASE.jar, file:/Users/lucasmf/.m2/repository/com/google/api-client/google-api-client-servlet/1.19.1/google-api-client-servlet-1.19.1.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-starter-log4j/1.2.1.RELEASE/spring-boot-starter-log4j-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/apache/httpcomponents/httpclient/4.3.6/httpclient-4.3.6.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-starter-security/1.2.1.RELEASE/spring-boot-starter-security-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/com/google/apis/google-api-services-plus/v1-rev209-1.19.1/google-api-services-plus-v1-rev209-1.19.1.jar, file:/Users/lucasmf/.m2/repository/com/google/code/gson/gson/2.3.1/gson-2.3.1.jar, file:/Users/lucasmf/.m2/repository/org/springframework/ws/spring-ws-support/2.2.0.RELEASE/spring-ws-support-2.2.0.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/aspectj/aspectjrt/1.8.4/aspectjrt-1.8.4.jar, file:/Users/lucasmf/.m2/repository/com/google/http-client/google-http-client-jdo/1.19.0/google-http-client-jdo-1.19.0.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-oxm/4.1.4.RELEASE/spring-oxm-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-web/4.1.4.RELEASE/spring-web-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-webmvc/4.1.4.RELEASE/spring-webmvc-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-jdbc/4.1.4.RELEASE/spring-jdbc-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar, file:/Users/lucasmf/.m2/repository/org/springframework/ws/spring-ws-core/2.2.0.RELEASE/spring-ws-core-2.2.0.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-expression/4.1.4.RELEASE/spring-expression-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/ws/spring-xml/2.2.0.RELEASE/spring-xml-2.2.0.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-core/4.1.4.RELEASE/spring-core-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.4.4/jackson-annotations-2.4.4.jar, file:/Users/lucasmf/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-beans/4.1.4.RELEASE/spring-beans-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-starter-web/1.2.1.RELEASE/spring-boot-starter-web-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/nz/net/ultraq/thymeleaf/thymeleaf-layout-dialect/1.2.7/thymeleaf-layout-dialect-1.2.7.jar, file:/Users/lucasmf/.m2/repository/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-starter/1.2.1.RELEASE/spring-boot-starter-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/apache/httpcomponents/httpcore/4.3.3/httpcore-4.3.3.jar, file:/Users/lucasmf/.m2/repository/org/hibernate/common/hibernate-commons-annotations/4.0.5.Final/hibernate-commons-annotations-4.0.5.Final.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/1.2.1.RELEASE/spring-boot-starter-tomcat-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar, file:/Users/lucasmf/.m2/repository/org/thymeleaf/thymeleaf/2.1.4.RELEASE/thymeleaf-2.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar, file:/Users/lucasmf/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.8/jcl-over-slf4j-1.7.8.jar, file:/Users/lucasmf/.m2/repository/org/thymeleaf/thymeleaf-spring4/2.1.4.RELEASE/thymeleaf-spring4-2.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-starter-logging/1.2.1.RELEASE/spring-boot-starter-logging-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/security/spring-security-config/3.2.5.RELEASE/spring-security-config-3.2.5.RELEASE.jar, file:/Users/lucasmf/.m2/repository/com/google/oauth-client/google-oauth-client/1.19.0/google-oauth-client-1.19.0.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-starter-ws/1.2.1.RELEASE/spring-boot-starter-ws-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar, file:/Users/lucasmf/.m2/repository/org/apache/tomcat/tomcat-juli/8.0.15/tomcat-juli-8.0.15.jar, file:/Users/lucasmf/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/8.0.15/tomcat-embed-core-8.0.15.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/1.2.1.RELEASE/spring-boot-starter-jdbc-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/com/google/oauth-client/google-oauth-client-servlet/1.19.0/google-oauth-client-servlet-1.19.0.jar, file:/Users/lucasmf/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/8.0.15/tomcat-embed-el-8.0.15.jar, file:/Users/lucasmf/.m2/repository/org/springframework/security/spring-security-core/3.2.5.RELEASE/spring-security-core-3.2.5.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/jboss/logging/jboss-logging/3.1.3.GA/jboss-logging-3.1.3.GA.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-tx/4.1.4.RELEASE/spring-tx-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/1.2.1.RELEASE/spring-boot-autoconfigure-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar, file:/Users/lucasmf/.m2/repository/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar, file:/Users/lucasmf/.m2/repository/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar, file:/Users/lucasmf/.m2/repository/com/google/http-client/google-http-client-jackson2/1.19.0/google-http-client-jackson2-1.19.0.jar, file:/Users/lucasmf/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar, file:/Users/lucasmf/.m2/repository/org/yaml/snakeyaml/1.14/snakeyaml-1.14.jar, file:/Users/lucasmf/.m2/repository/javax/transaction/transaction-api/1.1/transaction-api-1.1.jar, file:/Users/lucasmf/.m2/repository/com/google/api-client/google-api-client/1.19.1/google-api-client-1.19.1.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-orm/4.1.4.RELEASE/spring-orm-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-starter-aop/1.2.1.RELEASE/spring-boot-starter-aop-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/javax/jdo/jdo2-api/2.3-eb/jdo2-api-2.3-eb.jar, file:/Users/lucasmf/.m2/repository/com/h2database/h2/1.4.183/h2-1.4.183.jar, file:/Users/lucasmf/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.4.4/jackson-databind-2.4.4.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-messaging/4.1.4.RELEASE/spring-messaging-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-context/4.1.4.RELEASE/spring-context-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/apache/tomcat/tomcat-jdbc/8.0.15/tomcat-jdbc-8.0.15.jar, file:/Users/lucasmf/.m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.jar, file:/Users/lucasmf/.m2/repository/org/hibernate/hibernate-entitymanager/4.3.7.Final/hibernate-entitymanager-4.3.7.Final.jar, file:/Users/lucasmf/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar, file:/Users/lucasmf/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/1.2.1.RELEASE/spring-boot-starter-thymeleaf-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.4.4/jackson-core-2.4.4.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-jms/4.1.4.RELEASE/spring-jms-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/slf4j/jul-to-slf4j/1.7.8/jul-to-slf4j-1.7.8.jar, file:/Users/lucasmf/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/8.0.15/tomcat-embed-websocket-8.0.15.jar, file:/Users/lucasmf/.m2/repository/org/springframework/spring-aspects/4.1.4.RELEASE/spring-aspects-4.1.4.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/slf4j/slf4j-log4j12/1.7.8/slf4j-log4j12-1.7.8.jar, file:/Users/lucasmf/.m2/repository/org/aspectj/aspectjweaver/1.8.4/aspectjweaver-1.8.4.jar, file:/Users/lucasmf/.m2/repository/org/springframework/data/spring-data-commons/1.9.1.RELEASE/spring-data-commons-1.9.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/com/google/http-client/google-http-client/1.19.0/google-http-client-1.19.0.jar, file:/Users/lucasmf/.m2/repository/org/springframework/data/spring-data-jpa/1.7.1.RELEASE/spring-data-jpa-1.7.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/ognl/ognl/3.0.8/ognl-3.0.8.jar, file:/Users/lucasmf/.m2/repository/org/springframework/security/spring-security-web/3.2.5.RELEASE/spring-security-web-3.2.5.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/springframework/boot/spring-boot/1.2.1.RELEASE/spring-boot-1.2.1.RELEASE.jar, file:/Users/lucasmf/.m2/repository/org/slf4j/slf4j-api/1.7.8/slf4j-api-1.7.8.jar, file:/Users/lucasmf/.m2/repository/org/apache/tomcat/embed/tomcat-embed-logging-juli/8.0.15/tomcat-embed-logging-juli-8.0.15.jar, file:/Users/lucasmf/.m2/repository/commons-codec/commons-codec/1.6/commons-codec-1.6.jar, file:/Users/lucasmf/.m2/repository/org/springframework/springloaded/1.2.1.RELEASE/springloaded-1.2.1.RELEASE.jar]
+[2015-03-26 18:25:48][INFO ] (AutoConfigurationReportLoggingInitializer:107) : 
+
+Error starting ApplicationContext. To display the auto-configuration report enabled debug logging (start with --debug)
+
+
+[2015-03-26 18:25:48][ERROR] (SpringApplication:339) : Application startup failed
+java.lang.IllegalStateException: Tomcat connector in failed state
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.start(TomcatEmbeddedServletContainer.java:157)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.startEmbeddedServletContainer(EmbeddedWebApplicationContext.java:287)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.finishRefresh(EmbeddedWebApplicationContext.java:141)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:483)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:118)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:691)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:961)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:950)
+	at tw.jms.forever.Forever.main(Forever.java:18)
+[2015-03-26 18:25:48][INFO ] (AnnotationConfigEmbeddedWebApplicationContext:862) : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6cf56dcc: startup date [Thu Mar 26 18:25:41 CST 2015]; root of context hierarchy
+[2015-03-26 18:25:48][INFO ] (AnnotationMBeanExporter:438) : Unregistering JMX-exposed beans on shutdown
+[2015-03-26 18:25:48][INFO ] (LocalContainerEntityManagerFactoryBean:462) : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2015-03-26 18:25:48][INFO ] (SchemaExport:343) : HHH000227: Running hbm2ddl schema export
+[2015-03-26 18:25:48][INFO ] (SchemaExport:405) : HHH000230: Schema export complete
+Exception in thread "main" java.lang.IllegalStateException: Tomcat connector in failed state
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.start(TomcatEmbeddedServletContainer.java:157)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.startEmbeddedServletContainer(EmbeddedWebApplicationContext.java:287)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.finishRefresh(EmbeddedWebApplicationContext.java:141)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:483)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:118)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:691)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:961)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:950)
+	at tw.jms.forever.Forever.main(Forever.java:18)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 31.070 s
+[INFO] Finished at: 2015-03-26T18:25:48+08:00
+[INFO] Final Memory: 30M/1014M
+[INFO] ------------------------------------------------------------------------

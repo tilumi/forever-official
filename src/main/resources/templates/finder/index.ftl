@@ -19,6 +19,7 @@
 	</head>
 	<body>
 		<div id="content"></div>
+        <script th:src="@{/js/lib/common.min.js}" type="text/javascript"></script>
 		<script th:src="@{/js/finder/index.js}" type="text/javascript"></script>
 	</body>
 </html>
