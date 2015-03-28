@@ -129,18 +129,25 @@ app = Flask(__name__)
 cookieStore=cookielib.CookieJar()
 httpClient=urllib2.build_opener(urllib2.HTTPCookieProcessor(cookieStore))
 
-def login(username,password):
-    loginParameterMap = {'account':username,
-                         'pwd' : password}
-    loginPostRequest = createRequest('https://ms.tcgm.tw/welcome/login',loginParameterMap)
-    loginPostResponse= httpClient.open(loginPostRequest)
-    loginPostResponse.read()
+@app.route("/get_eva_status")
+def get_eva_status():
+    urlMap = {'loginPage' : 'https://ms.tcgm.tw/',
+              'loginPost' : 'https://ms.tcgm.tw/welcome/login',
+              'loginPostReferer' : ''}
 
+    print('Reqeust received')
+    loginPageRequest=createRequest(urlMap.get('loginPage'))
+    loginPageResponse=httpClient.open(loginPageRequest)
+    loginPageResponseString=loginPageResponse.read()
+    dom=BeautifulSoup.BeautifulSoup(loginPageResponseString)
+    # print dom
 
+    loginParameterMap = {'account':'twyoungsun@gmail.com',
+                         'pwd' : 'loveryin7'}
+    loginPostRequest = createRequest(urlMap.get('loginPost'),loginParameterMap)
+    loginPostResponse=httpClient.open(loginPostRequest)
+    loginPostResponseString=loginPostResponse.read()
 
-@app.route("/get_list")
-def get_list():
-    login('twyoungsun@gmail.com','loveryin7')
     print('Logged in!')
     fishListPageRequest=createRequest('http://ms.tcgm.tw/FishBox/manage_display/show_fishList')
     fishListPageResponse=httpClient.open(fishListPageRequest)
@@ -160,16 +167,15 @@ def get_list():
         matches = regex.search(line.__repr__())
         if matches is not None:
             fishMap.append(matches.group(1))
-    response = json.dumps(fishMap)
-    return response
 
-@app.route("/get_eva_status/<fish_id>")
-def get_eva_status(fish_id):
-    login('twyoungsun@gmail.com','loveryin7')
-    print('Logged in!')
-    fish_info = getinfo(fish_id)
-    response = json.dumps(fish_info)
-    return response
+    getfishinfo = []
+    for i in fishMap:
+        a = getinfo(i)
+        print(a)
+        getfishinfo.append(a)
+
+    jsonlist = json.dumps(getfishinfo)
+    return jsonlist
 
 from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
