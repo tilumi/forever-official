@@ -11,7 +11,11 @@ import re
 import json
 import BeautifulSoup
 from pattern import web
+import inspect
 
+def lineno():
+    """Returns the current line number in our program."""
+    return inspect.currentframe().f_back.f_lineno
 
 def createRequest(url,body=None):
     # print body
@@ -47,11 +51,9 @@ def getinfo(x):
     list = str.split(":")
     if list[1].decode('unicode-escape') == u'\u7537':
         gender = True
-    else :
+    else:
         gender = False
-    # gender = "u'%s'"%list[1]
-    # print type(gender)
-    # print gender
+
 
 
     str = div[3].text.encode('unicode-escape')
@@ -62,6 +64,7 @@ def getinfo(x):
     tag = profilesoup.findAll('h3')
     name = tag[0].text
     # print name
+    order = 0
     if depart == u'\u570b\u9ad8\u4e2d\u90e8' and gender == True:
         order = 1
     elif depart == u'\u570b\u9ad8\u4e2d\u90e8' and gender == False:
@@ -83,9 +86,6 @@ def getinfo(x):
 
     array = []
     for td_tag in profilesoup.findAll('td'):
-        # str = td_tag.text.encode('big5')
-        # print str
-        # print td_tag
         array.append(td_tag.text)
 
     lecture = []
@@ -97,6 +97,7 @@ def getinfo(x):
     j = 0
     while i <len(array):
         if j == 0:
+            print()
             if array[i] == u'\u8056\u7d93\u6642\u89c0' :
                 j = 1
             else :
@@ -120,14 +121,8 @@ def getinfo(x):
                 condition.append(array[i+3])
                 leclist.append([array[i],a,array[i+2]])
                 i=i+5
-
-    # reg = re.compile()
-    # print repr(lecture).decode("unicode-escape")
-    # print repr(date).decode("unicode-escape")
-    # print repr(lecturer).decode("unicode-escape")
-    # print repr(condition).decode("unicode-escape")
-    # return [name,gender,depart,leclist]
-    return {"name": name, "gender": gender, "depart": depart, "order": order, "lessons": leclist}
+    result = {"name": name, "gender": gender, "depart": depart, "order": order, "lessons": leclist}
+    return result
 
 from flask import Flask
 app = Flask(__name__)
@@ -140,32 +135,33 @@ def get_eva_status():
               'loginPost' : 'https://ms.tcgm.tw/welcome/login',
               'loginPostReferer' : ''}
 
-
+    print('Reqeust received')
     loginPageRequest=createRequest(urlMap.get('loginPage'))
     loginPageResponse=httpClient.open(loginPageRequest)
     loginPageResponseString=loginPageResponse.read()
     dom=BeautifulSoup.BeautifulSoup(loginPageResponseString)
     # print dom
 
-    loginParameterMap = {'account':'jimmytshs42@gmail.com',
-                         'pwd' : 'zxc5168A'}
+    loginParameterMap = {'account':'twyoungsun@gmail.com',
+                         'pwd' : 'loveryin7'}
     loginPostRequest = createRequest(urlMap.get('loginPost'),loginParameterMap)
     loginPostResponse=httpClient.open(loginPostRequest)
     loginPostResponseString=loginPostResponse.read()
 
-
+    print('Logged in!')
     fishListPageRequest=createRequest('http://ms.tcgm.tw/FishBox/manage_display/show_fishList')
     fishListPageResponse=httpClient.open(fishListPageRequest)
     fishPageResponseString=fishListPageResponse.read()
+    print('List got')
 
     soup = BeautifulSoup.BeautifulSoup(fishPageResponseString)
     learninglist = soup.find(id = 'collapse1')
     href = learninglist.findAll('a', attrs={'href': re.compile("^javascript:formSubmit")})
+    print('List content parsed!')
 
     regex = re.compile("formSubmit\(([0-9]+)\)")
 
     fishMap = []
-
 
     for line in href:
         matches = regex.search(line.__repr__())
@@ -175,13 +171,21 @@ def get_eva_status():
     getfishinfo = []
     for i in fishMap:
         a = getinfo(i)
+        print(a)
         getfishinfo.append(a)
 
     jsonlist = json.dumps(getfishinfo)
     return jsonlist
 
+from tornado.wsgi import WSGIContainer
+from tornado.httpserver import HTTPServer
+from tornado.ioloop import IOLoop
+
 if __name__ == "__main__":
     pid = os.getpid()
     print "Running server at process " + str(pid)
-    app.run()
+    http_server = HTTPServer(WSGIContainer(app))
+    http_server.listen(5000)
+    IOLoop.instance().start()
+
 # print get_eva_status()
