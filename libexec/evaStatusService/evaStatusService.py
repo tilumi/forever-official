@@ -97,7 +97,6 @@ def getinfo(x):
     j = 0
     while i <len(array):
         if j == 0:
-            print()
             if array[i] == u'\u8056\u7d93\u6642\u89c0' :
                 j = 1
             else :
@@ -129,22 +128,13 @@ app = Flask(__name__)
 cookieStore=cookielib.CookieJar()
 httpClient=urllib2.build_opener(urllib2.HTTPCookieProcessor(cookieStore))
 
-@app.route("/get_eva_status")
-def get_eva_status():
-    urlMap = {'loginPage' : 'https://ms.tcgm.tw/',
-              'loginPost' : 'https://ms.tcgm.tw/welcome/login',
-              'loginPostReferer' : ''}
-
-    print('Reqeust received')
-    loginPageRequest=createRequest(urlMap.get('loginPage'))
-    loginPageResponse=httpClient.open(loginPageRequest)
-    loginPageResponseString=loginPageResponse.read()
-    dom=BeautifulSoup.BeautifulSoup(loginPageResponseString)
-    # print dom
+@app.route("/load_eva_status")
+def load_eva_status():
+    loginPost = 'https://ms.tcgm.tw/welcome/login'
 
     loginParameterMap = {'account':'twyoungsun@gmail.com',
                          'pwd' : 'loveryin7'}
-    loginPostRequest = createRequest(urlMap.get('loginPost'),loginParameterMap)
+    loginPostRequest = createRequest(loginPost,loginParameterMap)
     loginPostResponse=httpClient.open(loginPostRequest)
     loginPostResponseString=loginPostResponse.read()
 
@@ -171,11 +161,19 @@ def get_eva_status():
     getfishinfo = []
     for i in fishMap:
         a = getinfo(i)
-        print(a)
         getfishinfo.append(a)
 
-    jsonlist = json.dumps(getfishinfo)
-    return jsonlist
+    fish_list = json.dumps(getfishinfo)
+    with open("cache/data.json", "w") as text_file:
+        text_file.write(fish_list)
+    return 'success'
+
+@app.route("/get_eva_status")
+def get_eva_status():
+    fish_list = ''
+    with open ("cache/data.json", "r") as myfile:
+        fish_list = myfile.read()
+    return fish_list
 
 from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
@@ -187,5 +185,3 @@ if __name__ == "__main__":
     http_server = HTTPServer(WSGIContainer(app))
     http_server.listen(5000)
     IOLoop.instance().start()
-
-# print get_eva_status()
