@@ -164,6 +164,10 @@ def load_eva_status():
         getfishinfo.append(a)
 
     fish_list = json.dumps(getfishinfo)
+
+    if not os.path.exists('cache'):
+        os.makedirs('cache')
+
     with open("cache/data.json", "w") as text_file:
         text_file.write(fish_list)
     return 'success'
