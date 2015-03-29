@@ -12,6 +12,7 @@ import json
 import BeautifulSoup
 from pattern import web
 import inspect
+from dateutil.parser import parse
 
 def lineno():
     """Returns the current line number in our program."""
@@ -115,6 +116,12 @@ def getinfo(x):
             else :
                 lecture.append(array[i])
                 a = array[i+1].decode('unicode-escape').replace("-0","/").replace("-", "/")
+                a = a + 'T08'
+                try:
+                    a = int(parse(a).strftime('%s'))
+                except:
+                    a = 0
+                # print(a)
                 date.append(a)
                 lecturer.append(array[i+2])
                 condition.append(array[i+3])
